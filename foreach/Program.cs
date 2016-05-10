@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Reflection;
+
 namespace forEach
 {
     class Program
@@ -12,7 +14,15 @@ namespace forEach
         const string defaultInsertStr = "$";
         static void usage()
         {
-            Console.WriteLine(
+            Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+            AssemblyName product = asm.GetName();
+            Version version = product.Version;
+            AssemblyCopyrightAttribute copyright = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0] as AssemblyCopyrightAttribute;
+
+            Console.Write(
+              product.Name.ToString()
+               + " Ver." + version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Revision.ToString()
+               + " " + copyright.Copyright + " mohmongar@mohmongar.net\n" +
                "usage : foreach.exe [option...] command [commandoption...] para1 para2 para3 ... \n" +
                "       It executes one command at a time using given parameters. \n"+
                "\n"+
