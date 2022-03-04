@@ -49,7 +49,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y foreach.exe c:\usr\bin</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" goto :Release
+:Debug
+echo Command after build for debug
+goto End
+:Release
+echo Command after build for release
+copy $(TargetPath) c:\usr\bin
+echo $(TargetPath) "=&gt;" c:\usr\bin
+:end
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

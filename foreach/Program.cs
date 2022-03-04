@@ -151,6 +151,7 @@ namespace forEach
             
             string sendto;
             int count = 0;
+            int argnum = argv.Count - argv.pointer;
             while ((sendto = argv.dequeue()) != null) {
                 if (sendto[0] != '"')
                 {
@@ -182,6 +183,7 @@ namespace forEach
                     Console.WriteLine("foreach: {0} exitcode {1}\n", cmd, exitCode);
                     Environment.Exit(exitCode);
                 }
+                Console.WriteLine("foreach: completed {0} / {1}\n", count, argnum);
             }
             Console.WriteLine("foreach: {0} commands executed.\n", count);
             if (waitKey)
